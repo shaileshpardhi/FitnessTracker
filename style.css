@@ -1349,3 +1349,10 @@ select:focus {
         page-break-inside: avoid;
     }
 }
+
+
+.f-container{
+    text-align: center;
+    margin: 2rem auto;
+    
+}
