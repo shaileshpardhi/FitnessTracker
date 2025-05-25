@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessTracker - Your Ultimate Fitness Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-dumbbell"></i>
+                <span>FitnessTracker</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-dumbbell"></i>
+                <span>FitTrack Pro</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#workouts" class="nav-link" data-section="workouts">
+                    <i class="fas fa-fire"></i>
+                    <span>Workouts</span>
+                </a>
+                <a href="#nutrition" class="nav-link" data-section="nutrition">
+                    <i class="fas fa-apple-alt"></i>
+                    <span>Nutrition</span>
+                </a>
+                <a href="#progress" class="nav-link" data-section="progress">
+                    <i class="fas fa-trophy"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="#profile" class="nav-link" data-section="profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Dashboard</h1>
+                    <p class="section-subtitle">Track your fitness journey</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="calories-burned">0</h3>
+                            <p>Calories Burned</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="workout-time">0</h3>
+                            <p>Minutes Worked Out</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="water-intake">0</h3>
+                            <p>Glasses of Water</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="streak-count">0</h3>
+                            <p>Day Streak</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="action-btn" onclick="startQuickWorkout()">
+                            <i class="fas fa-play"></i>
+                            <span>Start Workout</span>
+                        </button>
+                        <button class="action-btn" onclick="logWater()">
+                            <i class="fas fa-tint"></i>
+                            <span>Log Water</span>
+                        </button>
+                        <button class="action-btn" onclick="openBMICalculator()">
+                            <i class="fas fa-calculator"></i>
+                            <span>BMI Calculator</span>
+                        </button>
+                        <button class="action-btn" onclick="viewProgress()">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>View Progress</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Today's Goal -->
+                <div class="goal-card">
+                    <h3>Today's Goal</h3>
+                    <div class="goal-progress">
+                        <div class="goal-item">
+                            <span>Workout</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="workout-progress"></div>
+                            </div>
+                            <span id="workout-percentage">0%</span>
+                        </div>
+                        <div class="goal-item">
+                            <span>Water</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="water-progress"></div>
+                            </div>
+                            <span id="water-percentage">0%</span>
+                        </div>
+                        <div class="goal-item">
+                            <span>Steps</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="steps-progress"></div>
+                            </div>
+                            <span id="steps-percentage">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workouts Section -->
+        <section id="workouts" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Workouts</h1>
+                    <p class="section-subtitle">Choose your training program</p>
+                </div>
+
+                <!-- Workout Timer -->
+                <div class="workout-timer" id="workout-timer" style="display: none;">
+                    <div class="timer-display">
+                        <div class="timer-circle">
+                            <svg class="timer-svg" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="timer-bg"></circle>
+                                <circle cx="50" cy="50" r="45" class="timer-progress" id="timer-circle"></circle>
+                            </svg>
+                            <div class="timer-text">
+                                <span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>
+                            </div>
+                        </div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" id="start-pause-btn" onclick="toggleTimer()">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <button class="timer-btn" onclick="resetTimer()">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workout Categories -->
+                <div class="workout-categories">
+                    <div class="category-card" onclick="selectWorkoutCategory('strength')">
+                        <div class="category-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h3>Strength Training</h3>
+                        <p>Build muscle and increase power</p>
+                    </div>
+                    <div class="category-card" onclick="selectWorkoutCategory('cardio')">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Cardio</h3>
+                        <p>Improve cardiovascular health</p>
+                    </div>
+                    <div class="category-card" onclick="selectWorkoutCategory('flexibility')">
+                        <div class="category-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Flexibility</h3>
+                        <p>Enhance mobility and recovery</p>
+                    </div>
+                    <div class="category-card" onclick="selectWorkoutCategory('hiit')">
+                        <div class="category-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>HIIT</h3>
+                        <p>High-intensity interval training</p>
+                    </div>
+                </div>
+
+                <!-- Exercise List -->
+                <div class="exercise-list" id="exercise-list">
+                    <!-- Exercises will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutrition Section -->
+        <section id="nutrition" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Nutrition</h1>
+                    <p class="section-subtitle">Track your daily intake</p>
+                </div>
+
+                <!-- Calorie Counter -->
+                <div class="calorie-counter">
+                    <div class="calorie-display">
+                        <div class="calorie-circle">
+                            <canvas id="calorie-chart" width="200" height="200"></canvas>
+                            <div class="calorie-text">
+                                <span id="calories-consumed">0</span>
+                                <small>/ <span id="calorie-goal">2000</span> cal</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="macro-breakdown">
+                        <div class="macro-item">
+                            <span class="macro-label">Protein</span>
+                            <div class="macro-bar">
+                                <div class="macro-fill protein" id="protein-fill"></div>
+                            </div>
+                            <span id="protein-amount">0g</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Carbs</span>
+                            <div class="macro-bar">
+                                <div class="macro-fill carbs" id="carbs-fill"></div>
+                            </div>
+                            <span id="carbs-amount">0g</span>
+                        </div>
+                        <div class="macro-item">
+                            <span class="macro-label">Fat</span>
+                            <div class="macro-bar">
+                                <div class="macro-fill fat" id="fat-fill"></div>
+                            </div>
+                            <span id="fat-amount">0g</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Log -->
+                <div class="food-log">
+                    <h3>Today's Meals</h3>
+                    <div class="meal-sections">
+                        <div class="meal-section">
+                            <h4>Breakfast</h4>
+                            <div class="meal-items" id="breakfast-items"></div>
+                            <button class="add-meal-btn" onclick="addMeal('breakfast')">
+                                <i class="fas fa-plus"></i> Add Food
+                            </button>
+                        </div>
+                        <div class="meal-section">
+                            <h4>Lunch</h4>
+                            <div class="meal-items" id="lunch-items"></div>
+                            <button class="add-meal-btn" onclick="addMeal('lunch')">
+                                <i class="fas fa-plus"></i> Add Food
+                            </button>
+                        </div>
+                        <div class="meal-section">
+                            <h4>Dinner</h4>
+                            <div class="meal-items" id="dinner-items"></div>
+                            <button class="add-meal-btn" onclick="addMeal('dinner')">
+                                <i class="fas fa-plus"></i> Add Food
+                            </button>
+                        </div>
+                        <div class="meal-section">
+                            <h4>Snacks</h4>
+                            <div class="meal-items" id="snacks-items"></div>
+                            <button class="add-meal-btn" onclick="addMeal('snacks')">
+                                <i class="fas fa-plus"></i> Add Food
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Progress</h1>
+                    <p class="section-subtitle">Track your achievements</p>
+                </div>
+
+                <!-- Progress Charts -->
+                <div class="progress-charts">
+                    <div class="chart-container">
+                        <h3>Weight Progress</h3>
+                        <canvas id="weight-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Workout Frequency</h3>
+                        <canvas id="workout-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="achievements">
+                    <h3>Achievements</h3>
+                    <div class="achievement-grid" id="achievement-grid">
+                        <!-- Achievements will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Body Measurements -->
+                <div class="measurements">
+                    <h3>Body Measurements</h3>
+                    <div class="measurement-form">
+                        <div class="input-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="weight-input" placeholder="Enter weight">
+                        </div>
+                        <div class="input-group">
+                            <label>Body Fat %</label>
+                            <input type="number" id="bodyfat-input" placeholder="Enter body fat %">
+                        </div>
+                        <button class="btn-primary" onclick="logMeasurement()">Log Measurement</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h1 class="section-title">Profile</h1>
+                    <p class="section-subtitle">Manage your fitness profile</p>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3 id="profile-name">Fitness Enthusiast</h3>
+                        <p id="profile-level">Beginner Level</p>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="settings">
+                    <h3>Settings</h3>
+                    <div class="setting-item">
+                        <label>Daily Calorie Goal</label>
+                        <input type="number" id="calorie-goal-input" value="2000">
+                    </div>
+                    <div class="setting-item">
+                        <label>Daily Water Goal (glasses)</label>
+                        <input type="number" id="water-goal-input" value="8">
+                    </div>
+                    <div class="setting-item">
+                        <label>Workout Reminder</label>
+                        <select id="reminder-time">
+                            <option value="off">Off</option>
+                            <option value="morning">Morning (8:00 AM)</option>
+                            <option value="afternoon">Afternoon (2:00 PM)</option>
+                            <option value="evening">Evening (6:00 PM)</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+
+                <!-- BMI Calculator -->
+                <div class="bmi-calculator">
+                    <h3>BMI Calculator</h3>
+                    <div class="bmi-form">
+                        <div class="input-group">
+                            <label>Height (cm)</label>
+                            <input type="number" id="height-input" placeholder="Enter height">
+                        </div>
+                        <div class="input-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" id="bmi-weight-input" placeholder="Enter weight">
+                        </div>
+                        <button class="btn-primary" onclick="calculateBMI()">Calculate BMI</button>
+                    </div>
+                    <div class="bmi-result" id="bmi-result" style="display: none;">
+                        <div class="bmi-value">
+                            <span id="bmi-number">0</span>
+                            <small>BMI</small>
+                        </div>
+                        <div class="bmi-category" id="bmi-category"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="food-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Food</h3>
+                <button class="modal-close" onclick="closeModal('food-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label>Food Name</label>
+                    <input type="text" id="food-name" placeholder="Enter food name">
+                </div>
+                <div class="input-group">
+                    <label>Calories</label>
+                    <input type="number" id="food-calories" placeholder="Enter calories">
+                </div>
+                <div class="input-group">
+                    <label>Protein (g)</label>
+                    <input type="number" id="food-protein" placeholder="Enter protein">
+                </div>
+                <div class="input-group">
+                    <label>Carbs (g)</label>
+                    <input type="number" id="food-carbs" placeholder="Enter carbs">
+                </div>
+                <div class="input-group">
+                    <label>Fat (g)</label>
+                    <input type="number" id="food-fat" placeholder="Enter fat">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('food-modal')">Cancel</button>
+                <button class="btn-primary" onclick="saveFoodItem()">Add Food</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notification-text">Success!</span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
